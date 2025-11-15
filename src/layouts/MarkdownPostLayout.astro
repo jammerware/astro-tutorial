@@ -1,0 +1,54 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import TagLink from "../components/TagLink.astro";
+const { frontmatter } = Astro.props;
+---
+
+<style>
+  ul.tags {
+    display: flex;
+    gap: 1rem;
+    padding-left: 0;
+  }
+
+  ul.tags li {
+    list-style-type: none;
+  }
+
+  a {
+    color: #00539f;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    margin: 0.25em;
+    border: dotted 1px #a1a1a1;
+    border-radius: 0.5em;
+    padding: 0.5em 1em;
+    font-size: 1.15em;
+    background-color: #f8fcfd;
+  }
+</style>
+
+<BaseLayout pageTitle={frontmatter.title}>
+  <p>{frontmatter.pubDate.toString().slice(0, 10)}</p>
+  <p><em>{frontmatter.description}</em></p>
+  <p>Written by {frontmatter.author}</p>
+  <div>
+    <ul class="tags">
+      {
+        frontmatter.tags.map((t: any) => (
+          <li class="tag">
+            <TagLink tag={t} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} />
+  <slot />
+</BaseLayout>
