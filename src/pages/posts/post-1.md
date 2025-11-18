@@ -11,8 +11,8 @@
 # are aimed at this need.
 #
 # To emphasize, there's _no_ routing configuration needed to make this work at all. To prove it, 
-# see pages/markdown-routing/dummy.md. Even though it's pure markdown (it's actually just text) and thus has no layout or
-# any special metadata, you can still visit it at http://host/markdown-routing-dummy.
+# see pages/markdown-routing/dummy.md. Even though it's pure markdown (except Astro does require a little title metadata) and thus has no layout
+# and mostly no metadata, you can still visit it at http://host/markdown-routing-dummy.
 #
 # FRONTMATTER
 # Apparently not just an Astro thing, but it's the term for the YAML block at the top of a markdown "page" like this one.
