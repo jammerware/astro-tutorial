@@ -1,4 +1,27 @@
 ---
+# There's a lot of magic happening here, I think.
+#
+# ROUTING
+# For one thing, Astro automatically routes anything declared in the pages directory - even if it's markdown.
+# So we don't have a route declaration for /posts/* or something like that - just by creating the file, a static route is
+# created for /posts/post-1. I don't really know how you're supposed to do this if you have someone authoring static content
+# via markdown that doesn't have access to the source. Maybe you're meant to build another system that you can query for
+# the content and then use it with a `getStaticPaths` component like pages/tags/[tag].astro to generate the routes for build.
+# Apparently there's an Astro feature called Content Collections (https://docs.astro.build/en/guides/content-collections/) that
+# are aimed at this need.
+#
+# To emphasize, there's _no_ routing configuration needed to make this work at all. To prove it, 
+# see pages/markdown-routing/dummy.md. Even though it's pure markdown (it's actually just text) and thus has no layout or
+# any special metadata, you can still visit it at http://host/markdown-routing-dummy.
+#
+# FRONTMATTER
+# Apparently not just an Astro thing, but it's the term for the YAML block at the top of a markdown "page" like this one.
+#
+# Crtiically, the `layout` key is magic and tells Astro to wrap the MD content below using a layout component (one with a <slot />).
+#
+# Everything here becomes available to the layout component via Astro.props, so you can use metadata like title, description, etc.
+# to lay out the content. I think they also chose magic keys for some of the properties to make the RSS feed (if anyone still uses
+# RSS readers) work. See pages/rss.xml.js. 
 layout: ../../layouts/MarkdownPostLayout.astro
 title: 'My First Blog Post'
 pubDate: 2025-11-13

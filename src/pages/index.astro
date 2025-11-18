@@ -3,9 +3,24 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Greeting from "../components/Greeting";
 
 const pageTitle = "Home";
+const greetingMessages = [
+  "Hi",
+  "Sup?",
+  "Yo",
+  "你好"
+];
 ---
 
 <BaseLayout pageTitle={pageTitle}>
   <h2>with a cool Astro subtitle</h2>
-  <Greeting client:load messages={["Hi", "Sup?", "Yo", "你好"]} />
+
+  <!-- 
+    This is a Preact component (declared in components/Greeting.jsx), but it can be a component
+    from any framework you can reasonably get down to the client. (See astro.config.mjs, where I import
+    an Astro plugin or something that enables Preact support)
+
+    Key thing: you have to explicitly add a client directive to a component that ships with its own scripts, because
+    Astro makes you opt IN to shipping JS to keep sizes down.
+  -->
+  <Greeting client:load messages={greetingMessages} />
 </BaseLayout>

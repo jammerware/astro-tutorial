@@ -4,6 +4,18 @@ import BlogPost from "../../components/BlogPost.astro";
 import { GetTags } from "../../services/get-tags";
 import { GetPosts } from "../../services/get-posts";
 
+// this is one of the wackier things coming from SPA-likes.
+// A file name with [brackets] in it tells Astro that this is a dynamic route segment,
+// and that we're going to declare a `getStaticPaths()` function that returns possible values of that segment.
+// So here, we can do literally whatever we want (call out to an API, crawl the file system, whatever) at build time to ultimately
+// produce a set of static paths that Astro will build. Here, I just encapsulated crawling the file system in these functions
+// but yeah. Note that we return the value of the route param (tag) and also props that will be passed to pages rendered
+// this way. The end result is that we have a route defined at `/tags/[some tag]` for each tag available, and all of those
+// pages are statically built during build time.
+//
+// A final note is that Astro does have some flexibility for SSR that I haven't really played with yet. The thing I'm
+// describing above is completely true for static Astro apps, but if for any reason, your use case requires the ability
+// to also generate additional tag routes at runtime, it's doable, I just haven't really looked into how they handle that yet.
 export async function getStaticPaths() {
   const posts = GetPosts();
   const uniqueTags = GetTags();
